@@ -78,7 +78,7 @@ defmodule Swoosh.Adapters.Mailgun do
   # %{"my_var" => %{"my_message_id": 123},
   #   "my_other_var" => %{"my_other_id": 1, "stuff": 2}}
   defp prepare_custom_vars(body, %{provider_options: %{custom_vars: custom_vars}}) do
-    Enum.reduce(custom_vars, body, fn {k, v}, body -> Map.put(body, "v:#{k}", Poison.encode!(v)) end)
+    Enum.reduce(custom_vars, body, fn {k, v}, body -> Map.put(body, k, v) end) #recipient-variables
   end
   defp prepare_custom_vars(body, _email), do: body
 
